@@ -1,5 +1,3 @@
-colorscheme morning
-
 "---------------------------------------------------------------------------
 " フォント設定:
 "
@@ -14,7 +12,7 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-  set guifont=Osaka－等幅:h14
+  set guifont=Osaka−等幅:h14
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
@@ -22,15 +20,13 @@ endif
 
 "---------------------------------------------------------------------------
 " ウインドウに関する設定:
-"
+
 " ウインドウの幅
 set columns=78
 " ウインドウの高さ
 set lines=42
 " コマンドラインの高さ(GUI使用時)
 set cmdheight=2
-" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
-colorscheme evening " (GUI使用時)
 
 "---------------------------------------------------------------------------
 " 日本語入力に関する設定:
@@ -140,9 +136,6 @@ endif
  " そしてビジュアルベルも無効化する
  set t_vb=
 
- " 全モードでマウスを有効化
- set mouse=a
-
  " "press <Enter> to continue"
  " コマンドラインの高さを2行に
 set cmdheight=2
@@ -159,7 +152,6 @@ set number
 
  "------------------------------------------------------------
  " インデント関連のオプション {{{1
- "
  " Indentation settings according to personal preference.
 
  " タブ文字の代わりにスペース2個を使う場合の設定。
@@ -170,15 +162,12 @@ set number
 
  " インデントにハードタブを使う場合の設定。
  " タブ文字を2文字分の幅で表示する。
- set shiftwidth=4
  set tabstop=4
 
  "------------------------------------------------------------
  " Mappings {{{1
  " マッピング
- "
  " Useful mappings
-
  " Yの動作をDやCと同じにする
  map Y y$
 
@@ -244,8 +233,7 @@ augroup END
 "文字コードの自動認識
 "使用文字コードをutf-8に
 :set encoding=utf-8
-:set fileencoding=utf-8
-:set fileencodings=iso-2022-jp,enc-jp,sjis,utf-8
+:set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 "改行コードの自動認識
 "":set fileformats=unix,dos,mac
@@ -255,13 +243,13 @@ augroup END
 set noswapfile
 
 "------------------------------------------------------------
-" XML、HTMLの閉じタグを挿入
+" XML、HTMLの閉じタグを挿入(C+_で実行) インストールしてmacrosに置く必要あり
 :let g:closetag_html_style=1
 source $VIMRUNTIME/macros/closetag.vim
 
 "------------------------------------------------------------
 "vim 事態の設定で画面分割を右側に出す
-set splitright 
+set splitright
 
 "------------------------------------------------------------
 "全角スペースをハイライト表示
@@ -303,6 +291,7 @@ inoremap `' `'<Left>
 
 "------------------------------------------------------------
 " 挿入モードでのカーソル移動
+" (LinuxだとBackspaceの機能を消してしまうかも?)
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
@@ -345,9 +334,7 @@ NeoBundle 'Townk/vim-autoclose'
 
 "カラースキーマの設定
 NeoBundle 'altercation/vim-colors-solarized'
-syntax enable
-set background=dark    "または light
-colorscheme solarized
+set background=light    "または light
 
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
