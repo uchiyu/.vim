@@ -73,11 +73,7 @@ endif
  " Vi互換モードをオフ（Vimの拡張機能を有効）
  set nocompatible
 
- " Enable syntax highlighting
- " 色づけをオン
- syntax on
-
- "filetypeの自動認識をオン(html, pyなど)
+  "filetypeの自動認識をオン(html, pyなど)
  filetype on
 
  "------------------------------------------------------------
@@ -328,14 +324,6 @@ NeoBundle 'Townk/vim-autoclose'
 " set background=light    "または light
 NeoBundle 'MaxMellon/molokai'
 
-set t_Co=256
-try
-  colorscheme molokai
-  let g:molokai_original = 1
-catch
-  colorscheme desert
-endtry
-
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
 ":QuickRun ファイルタイプで実行 開いた実行結果は:onlyで閉じると楽
@@ -487,4 +475,14 @@ if has('conceal')
 endif
 
 "------------------------------------------------------
+set t_Co=256
+try
+  colorscheme molokai
+  let g:molokai_original = 1
+catch
+  colorscheme desert
+endtry
+
+"Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
+syntax on
 
