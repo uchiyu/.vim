@@ -19,16 +19,6 @@ elseif has('xfontset')
 endif
 
 "---------------------------------------------------------------------------
-" ウインドウに関する設定:
-
-" ウインドウの幅
-set columns=78
-" ウインドウの高さ
-set lines=42
-" コマンドラインの高さ(GUI使用時)
-set cmdheight=2
-
-"---------------------------------------------------------------------------
 " 日本語入力に関する設定:
 "
 if has('multi_byte_ime') || has('xim')
@@ -243,9 +233,10 @@ augroup END
 set noswapfile
 
 "------------------------------------------------------------
+" サーバーでエラー
 " XML、HTMLの閉じタグを挿入(C+_で実行) インストールしてmacrosに置く必要あり
-:let g:closetag_html_style=1
-source $VIMRUNTIME/macros/closetag.vim
+":let g:closetag_html_style=1
+"source $VIMRUNTIME/macros/closetag.vim
 
 "------------------------------------------------------------
 "vim 事態の設定で画面分割を右側に出す
@@ -294,7 +285,7 @@ inoremap `' `'<Left>
 " (LinuxだとBackspaceの機能を消してしまうかも?)
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-h> <Left>
+"inoremap <C-h> <Left> backspaceが効かなくなるので×
 inoremap <C-l> <Right>
 
 "------------------------------------------------------------
@@ -427,7 +418,8 @@ filetype plugin indent on
 
 " 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
 " 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
-NeoBundleCheck
+" Neobundleのインストールでエラーに
+"NeoBundleCheck
 
 "-------------------------
 " End Neobundle Settings.
