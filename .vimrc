@@ -163,7 +163,7 @@ set number
 
  " Map <C-L> (redraw screen) to also turn off search highlighting until the
  " next search
- " <C-L>で検・繧ﾌ強調表示を解除する
+ " <C-L>で検索などの強調表示を解除する
  nnoremap <C-L> :nohl<CR><C-L>
 
 
@@ -324,8 +324,17 @@ NeoBundleFetch  'Shougo/neobundle.vim'
 NeoBundle 'Townk/vim-autoclose'
 
 "カラースキーマの設定
-NeoBundle 'altercation/vim-colors-solarized'
-set background=light    "または light
+" NeoBundle 'altercation/vim-colors-solarized'
+" set background=light    "または light
+NeoBundle 'MaxMellon/molokai'
+
+set t_Co=256
+try
+  colorscheme molokai
+  let g:molokai_original = 1
+catch
+  colorscheme desert
+endtry
 
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
@@ -366,20 +375,20 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/html5.vim'
 " HTML 5 tags
-syn keyword htmlTagName contained article aside audio bb canvas command
-syn keyword htmlTagName contained datalist details dialog embed figure
-syn keyword htmlTagName contained header hgroup keygen mark meter nav output
-syn keyword htmlTagName contained progress time ruby rt rp section time
-syn keyword htmlTagName contained source figcaption
-syn keyword htmlArg contained autofocus autocomplete placeholder min max
-syn keyword htmlArg contained contenteditable contextmenu draggable hidden
-syn keyword htmlArg contained itemprop list sandbox subject spellcheck
-syn keyword htmlArg contained novalidate seamless pattern formtarget
-syn keyword htmlArg contained formaction formenctype formmethod
-syn keyword htmlArg contained sizes scoped async reversed sandbox srcdoc
-syn keyword htmlArg contained hi"den role
-syn match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
-syn match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
+syntax keyword htmlTagName contained article aside audio bb canvas command
+syntax keyword htmlTagName contained datalist details dialog embed figure
+syntax keyword htmlTagName contained header hgroup keygen mark meter nav output
+syntax keyword htmlTagName contained progress time ruby rt rp section time
+syntax keyword htmlTagName contained source figcaption
+syntax keyword htmlArg contained autofocus autocomplete placeholder min max
+syntax keyword htmlArg contained contenteditable contextmenu draggable hidden
+syntax keyword htmlArg contained itemprop list sandbox subject spellcheck
+syntax keyword htmlArg contained novalidate seamless pattern formtarget
+syntax keyword htmlArg contained formaction formenctype formmethod
+syntax keyword htmlArg contained sizes scoped async reversed sandbox srcdoc
+syntax keyword htmlArg contained hi"den role
+syntax match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
+syntax match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
 
 "JSのシンタックスファイル
 NeoBundle 'pangloss/vim-avascript'
@@ -404,7 +413,12 @@ let g:user_emmet_settings = {
 \ }
 
 "vimproc.vim 非同期処理の実現
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build' : {
+        \     'windows' : 'make -f make_mingw32.mak',
+        \     'cygwin' : 'make -f make_cygwin.mak',
+        \     'mac' : 'make -f make_mac.mak',
+        \     'unix' : 'make -f make_unix.mak' } }
 "unite.vim ディレクトリやファイルの作成、バッファの表示など
 NeoBundle 'Shougo/unite.vim'
 "vimfiler ファイル操作が可能に
