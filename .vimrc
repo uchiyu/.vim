@@ -220,7 +220,7 @@ augroup END
 "使用文字コードをutf-8に
 :set encoding=utf-8
 "ファイルの読み込みの設定 左から順に試行
-:set fileencodings=utf-8, ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+:set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 
 "改行コードの自動認識
 "":set fileformats=unix,dos,mac
