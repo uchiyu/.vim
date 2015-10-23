@@ -326,8 +326,6 @@ NeoBundleFetch  'Shougo/neobundle.vim'
 NeoBundle 'Townk/vim-autoclose'
 
 "カラースキーマの設定
-" NeoBundle 'altercation/vim-colors-solarized'
-" set background=light    "または light
 NeoBundle 'MaxMellon/molokai'
 
 "コードを実行------------------------------------------------------
