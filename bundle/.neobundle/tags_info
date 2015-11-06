@@ -4,9 +4,11 @@ jscomplete-vim
 molokai
 neobundle.vim
 neocomplcache
+neocomplete-rsense.vim
 neosnippet
 neosnippet-snippets
 open-browser.vim
+rsense
 surround.vim
 syntastic
 tern_for_vim
@@ -15,6 +17,7 @@ vim-autoclose
 vim-avascript
 vim-coffee-script
 vim-css3-syntax
+vim-endwise
 vim-javascript-syntax
 vim-node
 vim-quickrun
