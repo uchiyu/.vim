@@ -20,7 +20,6 @@ endif
 
 "---------------------------------------------------------------------------
 " 日本語入力に関する設定:
-"
 if has('multi_byte_ime') || has('xim')
   " IME ON時のカーソルの色を設定(設定例:紫)
   highlight CursorIM guibg=Purple guifg=NONE
@@ -59,7 +58,7 @@ set mousehide
 "   :hardcopy
 "   :help 'printfont'
 "   :help printing
-"
+
 " 印刷用フォント
 if has('printer')
   if has('win32')
@@ -78,7 +77,6 @@ endif
 
  "------------------------------------------------------------
  " Must have options {{{1
- "
  " 強く推奨するオプション
  " バッファを保存しなくても他のバッファを表示できるようにする
  set hidden
@@ -126,8 +124,10 @@ endif
  " コマンドラインの高さを2行に
 set cmdheight=2
 
-" 行番号を表示
+" 行番号の表示と相対表示 
+" 番号＋j(or)kでジャンプ
 set number
+set relativenumber
 
  " キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
  set notimeout ttimeout ttimeoutlen=200
@@ -142,8 +142,8 @@ set number
 
  " タブ文字の代わりにスペース2個を使う場合の設定。
  " この場合、'tabstop'はデフォルトの8から変えない。
- set shiftwidth=4
- set softtabstop=4
+ set shiftwidth=2
+ set softtabstop=2
  set expandtab
 
  " インデントにハードタブを使う場合の設定。
@@ -156,12 +156,6 @@ set number
  " Useful mappings
  " Yの動作をDやCと同じにする
  map Y y$
-
- " Map <C-L> (redraw screen) to also turn off search highlighting until the
- " next search
- " <C-L>で検索などの強調表示を解除する
- nnoremap <C-L> :nohl<CR><C-L>
-
 
 "------------------------------------------------------------
 "自動でコメントアウト挿入をやめる
@@ -179,6 +173,9 @@ autocmd FileType * set formatoptions-=ro
 "-------------------------------------------------------------
 "windowsのctrl+αの操作の追加
 ":source $VIMRUNTIME/mswin.vim
+
+" <leader>をspaceのに
+let mapleader = "\<Space>"
 
 "------------------------------------------------------------
 "insertからjjで抜ける
@@ -218,12 +215,12 @@ augroup END
 "文字コード---------------------------------------------------
 "文字コードの自動認識
 "使用文字コードをutf-8に
-:set encoding=utf-8
+set encoding=utf-8
 "ファイルの読み込みの設定 左から順に試行
-:set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 "改行コードの自動認識
-"":set fileformats=unix,dos,mac
+"set fileformats=unix,dos,mac
 
 "------------------------------------------------------------
 "スワップファイルを作成しない
@@ -232,11 +229,11 @@ set noswapfile
 "------------------------------------------------------------
 " サーバーでエラー
 " XML、HTMLの閉じタグを挿入(C+_で実行) インストールしてmacrosに置く必要あり
-":let g:closetag_html_style=1
+"let g:closetag_html_style=1
 "source $VIMRUNTIME/macros/closetag.vim
 
 "------------------------------------------------------------
-"vim 事態の設定で画面分割を右側に出す
+"vim 自体の設定で画面分割を右側に出す
 set splitright
 
 "------------------------------------------------------------
@@ -278,16 +275,8 @@ inoremap '' ''<Left>
 inoremap `' `'<Left>
 
 "------------------------------------------------------------
-" 挿入モードでのカーソル移動
-" (LinuxだとBackspaceの機能を消してしまうかも?)
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-"inoremap <C-h> <Left> backspaceが効かなくなるので×
-inoremap <C-l> <Right>
-
-"------------------------------------------------------------
-" カーソルキーをブロック（ノーマルモード）とライン（挿入モード）に
-" mintty上でのみ動作するのでcygwinやmingwなど意外では無効かも？
+"minttyの設定
+"insert時にカーソルをブロックから変化
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
@@ -298,10 +287,9 @@ let &t_te.="\e[0 q"
 set list
 set listchars=eol:$,tab:>-,trail:_,extends:<
 
-display=laststatus
-
-"set showmatch
-"set matchtime=1
+" 対応する括弧やフレーズの表示
+set showmatch
+set matchtime=1
 
 "プラグイン---------------------------------------------------
 "Nuobundleの設定
@@ -314,18 +302,32 @@ set runtimepath+=~/.vim/bundle/neobundle.vim/
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-""Nuobundleのプラグイン
+"Nuobundleのプラグイン
 "---------------------------
 "start Neobundle Settings.
 "---------------------------
 " 追加のプラグイン
-"
+
 " neobundle自体をneobundleで管理
 NeoBundleFetch  'Shougo/neobundle.vim'
-"自動でかっこを閉じる
+
+" helpの日本語化と遅延ロード
+NeoBundle 'vim-jp/vimdoc-ja' , {
+      \  'autoload' : { 'commands' : [ 'help' ] },
+      \}
+" vimdoc-ja 普段はコメントアウト
+helptags $HOME/.vim/bundle/vimdoc-ja/doc
+set helplang=ja,en
+
+" indentLine
+NeoBundle  'Yggdroot/indentLine'
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+
+" 自動でかっこを閉じる
 NeoBundle 'Townk/vim-autoclose'
 
-"カラースキーマの設定
+" カラースキーマの設定
 NeoBundle 'MaxMellon/molokai'
 
 "コードを実行------------------------------------------------------
@@ -354,7 +356,7 @@ NeoBundle 'taichouchou2/surround.vim'
 
 "open-browser.vim URLを開いたりググれる----------------------------
 NeoBundle 'open-browser.vim'
-" カーソル下のURLをブラウザで開く (Leaderはバックスラッシュ)
+" カーソル下のURLをブラウザで開く
 nmap <Leader>o <Plug>(openbrowser-open)
 vmap <Leader>o <Plug>(openbrowser-open)
 " ググる
@@ -366,21 +368,6 @@ NeoBundle 'mattn/webapi-vim'
 "htmlのシンタックスファイル----------------------------------------
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/html5.vim'
-" HTML 5 tags
-syntax keyword htmlTagName contained article aside audio bb canvas command
-syntax keyword htmlTagName contained datalist details dialog embed figure
-syntax keyword htmlTagName contained header hgroup keygen mark meter nav output
-syntax keyword htmlTagName contained progress time ruby rt rp section time
-syntax keyword htmlTagName contained source figcaption
-syntax keyword htmlArg contained autofocus autocomplete placeholder min max
-syntax keyword htmlArg contained contenteditable contextmenu draggable hidden
-syntax keyword htmlArg contained itemprop list sandbox subject spellcheck
-syntax keyword htmlArg contained novalidate seamless pattern formtarget
-syntax keyword htmlArg contained formaction formenctype formmethod
-syntax keyword htmlArg contained sizes scoped async reversed sandbox srcdoc
-syntax keyword htmlArg contained hi"den role
-syntax match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
-syntax match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
 
 "JSのシンタックスファイル
 NeoBundle 'pangloss/vim-avascript'
@@ -401,23 +388,36 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'slim-template/vim-slim'
 
 "-----------------------------------------------------------OB
-" Ruby 関連
+" Ruby Rails関連
 " コード補完
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'marcus/rsense'
 NeoBundle 'supermomonga/neocomplete-rsense.vim'
-
-" 自動で閉じる
-NeoBundle 'tpope/vim-endwise'
-
-" Rsense
 let g:rsenseHome = '/usr/local/lib/rsense-0.3'
 let g:rsenseUseOmniFunc = 1
 
-" rubocop
+" ドキュメント参照 shift+kでリファレンス
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'yuku-t/vim-ref-ri'
+
+" メソッド定義元へのジャンプ
+NeoBundle 'szw/vim-tags'
+
+" 自動でendなどを閉じる
+NeoBundle 'tpope/vim-endwise'
+
+" rubocopでのsyntastic
 " syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
 " active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
+
+" gfの強化版
+NeoBundle 'tpope/vim-rails'
+autocmd User Rails AlterCommand r R
+autocmd User Rails AlterCommand rc Rcontroller
+autocmd User Rails AlterCommand rm Rmodel
+autocmd User Rails AlterCommand rv Rview
 
 "emmet.vim htmlやcss記述の効率化-----------------------------------
 NeoBundle 'mattn/emmet-vim'
@@ -433,10 +433,23 @@ NeoBundle 'Shougo/vimproc.vim', {
         \     'cygwin' : 'make -f make_cygwin.mak',
         \     'mac' : 'make -f make_mac.mak',
         \     'unix' : 'make -f make_unix.mak' } }
+
+"------------------------------------------------------------------
 "unite.vim ディレクトリやファイルの作成、バッファの表示など
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-rails'
+" 最近使用したファイルの表示
+NeoBundle 'Shougo/neomru.vim'
+nnoremap <leader>m :<C-u>Unite file_mru<CR>
+
+"-----------------------------------------------------------------
 "vimfiler ファイル操作が可能に
 NeoBundle 'Shougo/vimfiler'
+" セーフティーモードの解除
+let g:vimfiler_safe_mode_by_default = 0
+"ffでVimfilerでIDE風にファイルを表示
+nnoremap ss :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
+
 "スカウター ":scouter ファイル名 で実行
 NeoBundle 'thinca/vim-scouter'
 
@@ -511,4 +524,5 @@ endtry
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
+
 
