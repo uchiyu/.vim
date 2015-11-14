@@ -129,6 +129,9 @@ set cmdheight=2
 set number
 set relativenumber
 
+" 画面に余裕を持たせてスクロール
+set scrolloff = 5
+
  " キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
  set notimeout ttimeout ttimeoutlen=200
 
