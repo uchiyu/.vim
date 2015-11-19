@@ -140,7 +140,7 @@ set scrolloff=5
  set pastetoggle=<F11>
 
  "------------------------------------------------------------
- " インデント関連のオプション {{{1
+ " インデント関連のオプション
  " Indentation settings according to personal preference.
 
  " タブ文字の代わりにスペース2個を使う場合の設定。
@@ -228,12 +228,6 @@ set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp
 "------------------------------------------------------------
 "スワップファイルを作成しない
 set noswapfile
-
-"------------------------------------------------------------
-" サーバーでエラー
-" XML、HTMLの閉じタグを挿入(C+_で実行) インストールしてmacrosに置く必要あり
-"let g:closetag_html_style=1
-"source $VIMRUNTIME/macros/closetag.vim
 
 "------------------------------------------------------------
 "vim 自体の設定で画面分割を右側に出す
@@ -527,5 +521,4 @@ endtry
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
-
 
