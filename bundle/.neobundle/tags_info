@@ -6,12 +6,10 @@ molokai
 neobundle.vim
 neocomplcache
 neocomplete-rsense.vim
-neocomplete.vim
 neomru.vim
 neosnippet
 neosnippet-snippets
 open-browser.vim
-rsense
 surround.vim
 syntastic
 tern_for_vim
@@ -22,9 +20,7 @@ vim-avascript
 vim-coffee-script
 vim-css3-syntax
 vim-endwise
-vim-javascript-syntax
 vim-node
-vim-quickrun
 vim-rails
 vim-ref
 vim-ref-ri

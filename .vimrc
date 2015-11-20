@@ -67,61 +67,64 @@ if has('printer')
   endif
 endif
 
- "------------------------------------------------------------
- " Features {{{1
- " Vi互換モードをオフ（Vimの拡張機能を有効）
- set nocompatible
+"------------------------------------------------------------
+" Features {{{1
+" Vi互換モードをオフ（Vimの拡張機能を有効）
+set nocompatible
 
-  "filetypeの自動認識をオン(html, pyなど)
- filetype on
+ "filetypeの自動認識をオン(html, pyなど)
+filetype on
 
- "------------------------------------------------------------
- " Must have options {{{1
- " 強く推奨するオプション
- " バッファを保存しなくても他のバッファを表示できるようにする
- set hidden
- " コマンドライン補完を便利に
- set wildmenu
- " タイプ途中のコマンドを画面最下行に表示
- set showcmd
- " 検索語を強調表示（<C-L>を押すと現在の強調表示を解除する）
- set hlsearch
+"------------------------------------------------------------
+" Must have options {{{1
+" 強く推奨するオプション
+" バッファを保存しなくても他のバッファを表示できるようにする
+set hidden
+" コマンドライン補完を便利に
+set wildmenu
+" タイプ途中のコマンドを画面最下行に表示
+set showcmd
+" 検索語を強調表示（<C-L>を押すと現在の強調表示を解除する）
+set hlsearch
 
- "------------------------------------------------------------
- " 検索時に大文字・小文字を区別しない。ただし、検索後に大文字小文字が
- " 混在しているときは区別する
- set ignorecase
- set smartcase
+"------------------------------------------------------------
+" 検索時に大文字・小文字を区別しない。ただし、検索後に大文字小文字が
+" 混在しているときは区別する
+set ignorecase
+set smartcase
 
- " オートインデント、改行、インサートモード開始直後にバックスペースキーで
- " 削除できるようにする。
- set backspace=indent,eol,start
+" オートインデント、改行、インサートモード開始直後にバックスペースキーで
+" 削除できるようにする。
+set backspace=indent,eol,start
 
- " オートインデント
- set autoindent
- set smartindent
+" オートインデント
+set autoindent
+set smartindent
 
- " 移動コマンドを使ったとき、行頭に移動しない
- set nostartofline
+" 現在の行の強調表示
+set cursorline
 
- " 画面最下行にルーラーを表示する
- set ruler
+" 移動コマンドを使ったとき、行頭に移動しない
+set nostartofline
 
- " ステータスラインを常に表示する
- set laststatus=2
+" 画面最下行にルーラーを表示する(右下の行数とか)
+set ruler
 
- " バッファが変更されているとき、コマンドをエラーにするのでなく、保存する
- " かどうか確認を求める
- set confirm
+" ステータスラインを常に表示する
+set laststatus=2
 
- " ビープの代わりにビジュアルベル（画面フラッシュ）を使う
- set visualbell
+" バッファが変更されているとき、コマンドをエラーにするのでなく、保存する
+" かどうか確認を求める
+set confirm
 
- " そしてビジュアルベルも無効化する
- set t_vb=
+" ビープの代わりにビジュアルベル（画面フラッシュ）を使う
+set visualbell
 
- " "press <Enter> to continue"
- " コマンドラインの高さを2行に
+" そしてビジュアルベルも無効化する
+set t_vb=
+
+" "press <Enter> to continue"
+" コマンドラインの高さを2行に
 set cmdheight=2
 
 " 行番号の表示と相対表示 
@@ -174,10 +177,7 @@ autocmd FileType * set formatoptions-=ro
 "ユーザー変更部 uchiyu
 "============================================================
 "-------------------------------------------------------------
-"windowsのctrl+αの操作の追加
-":source $VIMRUNTIME/mswin.vim
-
-" <leader>をspaceのに
+" <leader>をspaceに
 let mapleader = "\<Space>"
 
 "------------------------------------------------------------
@@ -324,23 +324,11 @@ let g:indentLine_color_gui = '#708090'
 " 自動でかっこを閉じる
 NeoBundle 'Townk/vim-autoclose'
 
-" カラースキーマの設定---------------------------------------------------
-NeoBundle 'MaxMellon/molokai'
-"色の設定set t_Co=256
-try
-  colorscheme molokai
-  let g:molokai_original = 1
-catch
-  colorscheme desert
-endtry
-
-
-
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
 ":QuickRun ファイルタイプで実行 開いた実行結果は:onlyで閉じると楽
 ":QuickRun <= ?で標準入力も可能 空白には対応してない
-NeoBundle 'thinca/vim-quickrun'
+""NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config={'*': {'split': 'vertical'}}
 
 "シンタックスチェック syntastic------------------------------------
@@ -462,6 +450,9 @@ nnoremap ss :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
 "スカウター ":scouter ファイル名 で実行
 NeoBundle 'thinca/vim-scouter'
 
+" カラースキーマの設定---------------------------------------------------
+NeoBundle 'MaxMellon/molokai'
+
 call neobundle#end()
 " Requireid:
 filetype plugin indent on
@@ -469,7 +460,7 @@ filetype plugin indent on
 " 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
 " 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 " Neobundleのインストールでエラーに
-"NeoBundleCheck
+NeoBundleCheck
 
 "-------------------------
 " End Neobundle Settings.
@@ -478,3 +469,11 @@ filetype plugin indent on
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
 
+"色の設定(syntax onのあとに)
+set t_Co=256
+try
+  colorscheme molokai
+  let g:molokai_original = 1
+catch
+  colorscheme desert
+endtry
