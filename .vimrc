@@ -324,8 +324,17 @@ let g:indentLine_color_gui = '#708090'
 " 自動でかっこを閉じる
 NeoBundle 'Townk/vim-autoclose'
 
-" カラースキーマの設定
+" カラースキーマの設定---------------------------------------------------
 NeoBundle 'MaxMellon/molokai'
+"色の設定set t_Co=256
+try
+  colorscheme molokai
+  let g:molokai_original = 1
+catch
+  colorscheme desert
+endtry
+
+
 
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
@@ -334,21 +343,58 @@ NeoBundle 'MaxMellon/molokai'
 NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config={'*': {'split': 'vertical'}}
 
-"シンタックスチェック----------------------------------------------
-"execute pathogen#infect()
+"シンタックスチェック syntastic------------------------------------
 NeoBundle "scrooloose/syntastic"
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_save = 1
 let g:syntastic_check_on_wq = 0
 
+"htmlのシンタックスファイル
+NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'taichouchou2/html5.vim'
+"JSのシンタックスファイル
+NeoBundle 'pangloss/vim-avascript'
+NeoBundle 'mattn/jscomplete-vim'
+"coffee-scriptのシンタックスファイル
+NeoBundle 'kchmck/vim-coffee-script'
+"slimのシンタックスファイル
+NeoBundle 'slim-template/vim-slim'
+
+"スニペット snippet------------------------------------------------
 "snippetは入力補完 complcacheは入力補完機能の強化 のようなもの
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'Shougo/neosnippet-snippets'
 
-"surround.vim タグなどの編集
+" 起動時に有効化
+let g:neocomplcache_enable_at_startup = 1
+" 自分用 snippet ファイルの場所
+let g:neosnippet#snippets_directory = '~/.vim/snippets/'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+"jsの補完強化
+NeoBundle 'marijnh/tern_for_vim'
+
+" Ruby Rails関連----------------------------------------------------
+NeoBundle 'supermomonga/neocomplete-rsense.vim'
+let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+let g:rsenseUseOmniFunc = 1
+
+"surround.vim タグなどの編集---------------------------------------
 NeoBundle 'taichouchou2/surround.vim'
 
 "open-browser.vim URLを開いたりググれる----------------------------
@@ -362,36 +408,8 @@ nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 "webapi vimからhttpのpostやgetが可能-------------------------------
 NeoBundle 'mattn/webapi-vim'
 
-"htmlのシンタックスファイル----------------------------------------
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
-
-"JSのシンタックスファイル
-NeoBundle 'pangloss/vim-avascript'
-NeoBundle 'mattn/jscomplete-vim'
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
-
-"jsの補完強化
-NeoBundle 'marijnh/tern_for_vim'
-
 "ノードの整形
 NeoBundle 'moll/vim-node'
-
-"coffee-scriptのシンタックスファイル
-NeoBundle 'kchmck/vim-coffee-script'
-
-"slimのシンタックスファイル
-NeoBundle 'slim-template/vim-slim'
-
-"-----------------------------------------------------------OB
-" Ruby Rails関連
-" コード補完
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'marcus/rsense'
-NeoBundle 'supermomonga/neocomplete-rsense.vim'
-let g:rsenseHome = '/usr/local/lib/rsense-0.3'
-let g:rsenseUseOmniFunc = 1
 
 " ドキュメント参照 shift+kでリファレンス
 NeoBundle 'thinca/vim-ref'
@@ -402,12 +420,6 @@ NeoBundle 'szw/vim-tags'
 
 " 自動でendなどを閉じる
 NeoBundle 'tpope/vim-endwise'
-
-" rubocopでのsyntastic
-" syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
-" active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
 
 " gfの強化版
 NeoBundle 'tpope/vim-rails'
@@ -462,62 +474,6 @@ filetype plugin indent on
 "-------------------------
 " End Neobundle Settings.
 "-------------------------
-
-"----------------------------------------------------------
-"---------------------------
-" プラグインの設定
-"---------------------------
-"---------------------------------
-"シンタックスチェック
-
-if ! empty(neobundle#get("syntastic"))
-  " Disable automatic check at file open/close
-  let g:syntastic_check_on_open=0
-  let g:syntastic_check_on_wq=0
-  let g:syntastic_c_check_header = 1
-  " C++
-  let g:syntastic_cpp_check_header = 1
-  " Java
-  let g:syntastic_java_javac_config_file_enabled = 1
-  let g:syntastic_java_javac_config_file = "$HOME/.syntastic_javac_config"
-endif
-
-"---------------------------------------------------------
-"スニペット-----------------------------------------------
-" 自分用 snippet ファイルの場所
-let g:neosnippet#snippets_directory = '~/.vim/snippets/'
-
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-
-"各言語ごとの設定の追加---------------------------------
-" Enable omni completion. Not required if they are already set elsewhere in .vimrc
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-
-" neosnippet-------------------------------------------
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-"------------------------------------------------------
-set t_Co=256
-try
-  colorscheme molokai
-  let g:molokai_original = 1
-catch
-  colorscheme desert
-endtry
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
