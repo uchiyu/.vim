@@ -158,8 +158,7 @@ set scrolloff=5
  set tabstop=4
 
  "------------------------------------------------------------
- " Mappings {{{1
- " マッピング
+ " Mappings マッピング
  " Useful mappings
  " Yの動作をDやCと同じにする
  map Y y$
@@ -188,8 +187,8 @@ inoremap <silent> jj <ESC>
 "OSのクリップボードを使用
 set clipboard=unnamed
 
-"コマンドや検索パターンを10000件まで保存
-set history=10000
+"コマンドや検索パターンを100件まで保存
+set history=100
 
 "ESCを2回でハイライトを消す
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
@@ -207,14 +206,6 @@ augroup vimrc_restore_cursor_position
   autocmd!
   autocmd BufWinEnter * call s:RestoreCursorPostion()
 augroup END
-
-"-------------------------------------------------------------
-"autocomplpop.vim 予測変換の常時表示
-"snippetに同様の設定があり、競合するのでコメントアウト
-"set completeopt=menuone
-"for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-"  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
-"endfor
 
 "文字コード---------------------------------------------------
 "文字コードの自動認識
