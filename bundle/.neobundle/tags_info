@@ -1,3 +1,4 @@
+VimClojure
 emmet-vim
 html5.vim
 indentLine
@@ -10,13 +11,11 @@ neomru.vim
 neosnippet
 neosnippet-snippets
 open-browser.vim
-surround.vim
 syntastic
 tern_for_vim
 unite-rails
 unite.vim
 vim-autoclose
-vim-avascript
 vim-coffee-script
 vim-css3-syntax
 vim-endwise
@@ -26,8 +25,11 @@ vim-ref
 vim-ref-ri
 vim-scouter
 vim-slim
+vim-slime
+vim-surround
 vim-tags
 vimdoc-ja
 vimfiler
-vimproc.vim
+vimproc
+vimshell
 webapi-vim

@@ -281,9 +281,12 @@ set showmatch
 set matchtime=1
 
 "プラグイン---------------------------------------------------
-"Nuobundleの設定
 "---------------------------
 "start Neobundle Settings.
+"---------------------------
+
+"---------------------------
+"Nuobundleの設定
 "---------------------------
 " bundleで管理するディレクトリを指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -291,15 +294,26 @@ set runtimepath+=~/.vim/bundle/neobundle.vim/
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-"Nuobundleのプラグイン
-"---------------------------
-"start Neobundle Settings.
-"---------------------------
-" 追加のプラグイン
-
 " neobundle自体をneobundleで管理
 NeoBundleFetch  'Shougo/neobundle.vim'
 
+"vimproc.vim のインストールとmake
+NeoBundle 'Shougo/vimproc', {
+\ 'build' : {
+\     'windows' : 'make -f make_mingw32.mak',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'unix' : 'make -f make_unix.mak',
+\   },
+\ }
+
+NeoBundle 'VimClojure'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'jpalardy/vim-slime'
+
+"---------------------------
+" 追加のプラグイン
+"---------------------------
 " helpの日本語化と遅延ロード
 NeoBundle 'vim-jp/vimdoc-ja' , {
       \  'autoload' : { 'commands' : [ 'help' ] },
@@ -334,7 +348,6 @@ let g:syntastic_check_on_wq = 0
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/html5.vim'
 "JSのシンタックスファイル
-NeoBundle 'pangloss/vim-avascript'
 NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 NeoBundle 'kchmck/vim-coffee-script'
@@ -373,8 +386,8 @@ NeoBundle 'supermomonga/neocomplete-rsense.vim'
 let g:rsenseHome = '/usr/local/lib/rsense-0.3'
 let g:rsenseUseOmniFunc = 1
 
-"surround.vim タグなどの編集---------------------------------------
-NeoBundle 'taichouchou2/surround.vim'
+"surround.vim 括弧などの編集---------------------------------------
+NeoBundle 'tpope/vim-surround'
 
 "open-browser.vim URLを開いたりググれる----------------------------
 NeoBundle 'open-browser.vim'
@@ -414,18 +427,11 @@ let g:user_emmet_settings = {
 \   'lang' : 'ja'
 \ }
 
-"vimproc.vim 非同期処理の実現
-NeoBundle 'Shougo/vimproc.vim', {
-        \ 'build' : {
-        \     'windows' : 'make -f make_mingw32.mak',
-        \     'cygwin' : 'make -f make_cygwin.mak',
-        \     'mac' : 'make -f make_mac.mak',
-        \     'unix' : 'make -f make_unix.mak' } }
-
 "------------------------------------------------------------------
 "unite.vim ディレクトリやファイルの作成、バッファの表示など
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-rails'
+
+NeoBundle 'basyura/unite-rails'
 " 最近使用したファイルの表示
 NeoBundle 'Shougo/neomru.vim'
 nnoremap <leader>m :<C-u>Unite file_mru<CR>
@@ -460,7 +466,11 @@ NeoBundleCheck
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
 
-"色の設定(syntax onのあとに)
+"indentの設定 Clojure
+filetype plugin indent on
+filetype indent on
+
+"色の設定(syntax onのあとに) molokai
 set t_Co=256
 try
   colorscheme molokai
