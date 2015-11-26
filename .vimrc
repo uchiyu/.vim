@@ -305,7 +305,6 @@ NeoBundle 'vim-jp/vimdoc-ja' , {
       \  'autoload' : { 'commands' : [ 'help' ] },
       \}
 " vimdoc-ja 普段はコメントアウト
-helptags $HOME/.vim/bundle/vimdoc-ja/doc
 set helplang=ja,en
 
 " indentLine
