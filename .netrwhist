@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/13t208/.dotfiles'
+let g:netrw_dirhist_2='/home/13t208/.vim/snippets'
+let g:netrw_dirhist_3='/home/13t208/.vim'
+let g:netrw_dirhist_4='/home/13t208/llvm/tools'
+let g:netrw_dirhist_5='/home/13t208/.vim'
+let g:netrw_dirhist_6='/home/13t208/.vim/bundle/vimdoc-ja/doc'
+let g:netrw_dirhist_7='/cygdrive/c/Users/13t208/Desktop/university/講座/情報環境実験2/Kagawa/InfoExpr2/GyozaBrothers/src/Material/Enemy'
