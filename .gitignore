@@ -1,3 +1,4 @@
 # 無視するファイル
+.netrwhist
 /bundle/*
 /snippet/*
