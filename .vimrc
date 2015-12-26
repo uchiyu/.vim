@@ -343,6 +343,11 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_save = 1
 let g:syntastic_check_on_wq = 0
 
+" rubocopを使用
+let g:syntastic_mode_map = { 'mode': 'passive',
+  \ 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
 "htmlのシンタックスファイル
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/html5.vim'
