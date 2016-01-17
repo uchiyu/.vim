@@ -454,6 +454,19 @@ NeoBundle 'thinca/vim-scouter'
 " カラースキーマの設定---------------------------------------------------
 NeoBundle 'MaxMellon/molokai'
 
+" yankringの弊害が少ないver
+NeoBundle 'LeafCage/yankround.vim'
+NeoBundle 'kien/ctrlp.vim'
+" C-p, C-n で貼り付けたテキストの前後の履歴
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+
 " Required
 call neobundle#end()
 
