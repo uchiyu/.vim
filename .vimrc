@@ -183,6 +183,9 @@ let mapleader = "\<Space>"
 "insertからjjで抜ける
 inoremap <silent> jj <ESC>
 
+"ctrl-o で一行改行を入れてesc
+nnoremap <C-o> o<ESC>
+
 "OSのクリップボードを使用
 set clipboard=unnamed
 
