@@ -5,6 +5,7 @@ ln -s -f ~/.vim/.vimrc ~/
 dir=~/.vim
 
 if [ -e $dir ]; then
+  cd~/.vim
   git pull origin master
 else
   mkdir -p ~/.vim/bundle
