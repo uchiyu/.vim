@@ -166,12 +166,6 @@ set scrolloff=5
 "自動でコメントアウト挿入をやめる
 autocmd FileType * set formatoptions-=ro
 
-"日本語入力でノーマルモードに戻った際英数に戻る
-"<C-^>でIM制御が行える場合の設定
-"let IM_CtrlMode = 4
-"ctrl+jで日本語入力固定モードをOnOff
-"inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-
 "============================================================
 "ユーザー変更部 uchiyu
 "============================================================
