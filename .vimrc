@@ -1,6 +1,5 @@
 "---------------------------------------------------------------------------
 " フォント設定:
-"
 if has('win32')
   " Windows用
   set guifont=MS_Mincho:h12:cSHIFTJIS
@@ -135,36 +134,32 @@ set relativenumber
 " 画面に余裕を持たせてスクロール
 set scrolloff=5
 
- " キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
- set notimeout ttimeout ttimeoutlen=200
+" キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
+set notimeout ttimeout ttimeoutlen=200
 
- " Use <F11> to toggle between 'paste' and 'nopaste'
- " <F11>キーで'paste'と'nopaste'を切り替える
- set pastetoggle=<F11>
-
- "------------------------------------------------------------
- " インデント関連のオプション
- " Indentation settings according to personal preference.
-
- " タブ文字の代わりにスペース2個を使う場合の設定。
- " この場合、'tabstop'はデフォルトの8から変えない。
- set shiftwidth=2
- set softtabstop=2
- set expandtab
-
- " インデントにハードタブを使う場合の設定。
- " タブ文字を2文字分の幅で表示する。
- set tabstop=4
-
- "------------------------------------------------------------
- " Mappings マッピング
- " Useful mappings
- " Yの動作をDやCと同じにする
- map Y y$
+" Use <F11> to toggle between 'paste' and 'nopaste'
+" <F11>キーで'paste'と'nopaste'を切り替える
+set pastetoggle=<F11>
 
 "------------------------------------------------------------
-"自動でコメントアウト挿入をやめる
-autocmd FileType * set formatoptions-=ro
+" インデント関連のオプション
+" Indentation settings according to personal preference.
+
+" タブ文字の代わりにスペース2個を使う場合の設定。
+" この場合、'tabstop'はデフォルトの8から変えない。
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" インデントにハードタブを使う場合の設定。
+" タブ文字を2文字分の幅で表示する。
+set tabstop=4
+
+"------------------------------------------------------------
+" Mappings マッピング
+" Useful mappings
+" Yの動作をDやCと同じにする
+map Y y$
 
 "============================================================
 "ユーザー変更部 uchiyu
@@ -383,9 +378,9 @@ endif
 NeoBundle 'marijnh/tern_for_vim'
 
 " Ruby Rails関連----------------------------------------------------
-NeoBundle 'supermomonga/neocomplete-rsense.vim'
-let g:rsenseHome = '/usr/local/lib/rsense-0.3'
-let g:rsenseUseOmniFunc = 1
+"NeoBundle 'supermomonga/neocomplete-rsense.vim'
+"let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+"let g:rsenseUseOmniFunc = 1
 
 "surround.vim 括弧などの編集---------------------------------------
 NeoBundle 'tpope/vim-surround'
@@ -491,3 +486,8 @@ try
 catch
   colorscheme desert
 endtry
+
+"------------------------------------------------------------
+"自動でコメントアウト挿入をやめる
+autocmd FileType * set formatoptions-=ro
+
