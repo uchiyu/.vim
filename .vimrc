@@ -276,6 +276,12 @@ set listchars=eol:$,tab:>-,trail:_,extends:<
 set showmatch
 set matchtime=1
 
+" coffeeの設定------------------------------------
+" coffeeファイルタイプを認識させる
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+" インデントを設定
+autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+
 "プラグイン---------------------------------------------------
 "---------------------------
 "start Neobundle Settings.
