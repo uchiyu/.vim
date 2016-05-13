@@ -276,11 +276,23 @@ set listchars=eol:$,tab:>-,trail:_,extends:<
 set showmatch
 set matchtime=1
 
-" coffeeの設定------------------------------------
-" coffeeファイルタイプを認識させる
+" 言語毎の設定------------------------------------------------
+" ファイルタイプを認識して、インデントを変更
+" coffee
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
-" インデントを設定
 autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+
+" python
+au BufRead,BufNewFile,BufReadPre *.python   set filetype=python
+autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+
+" html
+au BufRead,BufNewFile,BufReadPre *.html set filetype=html
+autocmd FileType html     setlocal sw=4 sts=4 ts=4 et
+
+" sass
+au BufRead,BufNewFile *.scss set filetype=sass
+autocmd FileType sass     setlocal sw=4 sts=4 ts=4 et
 
 "プラグイン---------------------------------------------------
 "---------------------------
@@ -353,7 +365,7 @@ let g:syntastic_ruby_checkers = ['rubocop']
 
 "htmlのシンタックスファイル
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
+"NeoBundle 'taichouchou2/html5.vim'
 "JSのシンタックスファイル
 NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
@@ -375,10 +387,6 @@ let g:neosnippet#snippets_directory = '~/.vim/snippets/'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -460,6 +468,8 @@ NeoBundle 'MaxMellon/molokai'
 " yankringの弊害が少ないver
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'kien/ctrlp.vim'
+"ctrlpをc-fで起動する
+let g:ctrlp_map = '<C-f>'
 " C-p, C-n で貼り付けたテキストの前後の履歴
 nmap p <Plug>(yankround-p)
 xmap p <Plug>(yankround-p)
