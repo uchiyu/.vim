@@ -4,7 +4,6 @@
 if has('win32')
   " Windows用
   set guifont=MS_Mincho:h12:cSHIFTJIS
-  "set guifont=MS_Mincho:h12:cSHIFTJIS
   " 行間隔の設定
   set linespace=1
   " 一部のUCS文字の幅を自動計測して決める
@@ -63,7 +62,6 @@ set mousehide
 if has('printer')
   if has('win32')
     set printfont=MS_Mincho:h12:cSHIFTJIS
-    "set printfont=MS_Gothic:h12:cSHIFTJIS
   endif
 endif
 
@@ -485,6 +483,10 @@ nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 
+" コマンドラインにbranchを表示
+NeoBundle 'tpope/vim-fugitive'
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 " Required
 call neobundle#end()
 
@@ -499,7 +501,6 @@ NeoBundleCheck
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
-
 "indentの設定 Clojure
 filetype plugin indent on
 filetype indent on
