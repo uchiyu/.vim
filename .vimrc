@@ -199,6 +199,7 @@ endfunction
 augroup vimrc_restore_cursor_position
   autocmd!
   autocmd BufWinEnter * call s:RestoreCursorPostion()
+  autocmd InsertLeave * set nopaste
 augroup END
 
 "文字コード---------------------------------------------------
@@ -371,6 +372,12 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 NeoBundle 'kchmck/vim-coffee-script'
+"es6のシンタックスファイル
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'maxmellon/vim-jsx-pretty'
+" optional
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'othree/es.next.syntax.vim'
 "slimのシンタックスファイル
 NeoBundle 'slim-template/vim-slim'
 "スニペット snippet------------------------------------------------
@@ -400,6 +407,10 @@ endif
 
 "jsの補完強化
 NeoBundle 'marijnh/tern_for_vim'
+
+"JSONのシンタックス
+NeoBundle 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
 "surround.vim 括弧などの編集---------------------------------------
 NeoBundle 'tpope/vim-surround'
