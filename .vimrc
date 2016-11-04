@@ -292,6 +292,9 @@ autocmd FileType html     setlocal sw=4 sts=4 ts=4 et
 au BufRead,BufNewFile *.scss set filetype=sass
 autocmd FileType sass     setlocal sw=4 sts=4 ts=4 et
 
+" slim
+autocmd BufRead,BufNewFile *.slim setfiletype slim
+
 "プラグイン---------------------------------------------------
 "---------------------------
 "start Neobundle Settings.
@@ -370,7 +373,6 @@ NeoBundle 'mattn/jscomplete-vim'
 NeoBundle 'kchmck/vim-coffee-script'
 "slimのシンタックスファイル
 NeoBundle 'slim-template/vim-slim'
-
 "スニペット snippet------------------------------------------------
 "snippetは入力補完 complcacheは入力補完機能の強化 のようなもの
 NeoBundle 'Shougo/neocomplcache.git'
@@ -399,11 +401,6 @@ endif
 "jsの補完強化
 NeoBundle 'marijnh/tern_for_vim'
 
-" Ruby Rails関連----------------------------------------------------
-NeoBundle 'supermomonga/neocomplete-rsense.vim'
-let g:rsenseHome = '/usr/local/lib/rsense-0.3'
-let g:rsenseUseOmniFunc = 1
-
 "surround.vim 括弧などの編集---------------------------------------
 NeoBundle 'tpope/vim-surround'
 
@@ -430,13 +427,6 @@ NeoBundle 'szw/vim-tags'
 
 " 自動でendなどを閉じる
 NeoBundle 'tpope/vim-endwise'
-
-" gfの強化版
-NeoBundle 'tpope/vim-rails'
-autocmd User Rails AlterCommand r R
-autocmd User Rails AlterCommand rc Rcontroller
-autocmd User Rails AlterCommand rm Rmodel
-autocmd User Rails AlterCommand rv Rview
 
 "emmet.vim htmlやcss記述の効率化-----------------------------------
 NeoBundle 'mattn/emmet-vim'
