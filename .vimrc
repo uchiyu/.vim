@@ -74,7 +74,7 @@ set nocompatible
 filetype on
 
 "------------------------------------------------------------
-" Must have options {{{1
+" Must have options
 " 強く推奨するオプション
 " バッファを保存しなくても他のバッファを表示できるようにする
 set hidden
@@ -473,13 +473,13 @@ nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 
-" コマンドラインにbranchを表示
-NeoBundle 'tpope/vim-fugitive'
 " コマンドラインの拡張
 NeoBundle 'itchyny/lightline.vim'
+" コマンドラインにbranchを表示
+NeoBundle 'tpope/vim-fugitive'
 
 let g:lightline = {
-      \ 'colorscheme': 'tender',
+      \ 'colorscheme': 'default',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -492,6 +492,16 @@ function! LightLineFugitive()
   return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
 set noshowmode
+set statusline=%{anzu#search_status()}
+
+" 検索結果の順番を表示
+NeoBundle 'osyo-manga/vim-anzu'
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " Required
 call neobundle#end()
