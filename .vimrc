@@ -475,7 +475,23 @@ nmap <C-n> <Plug>(yankround-next)
 
 " コマンドラインにbranchを表示
 NeoBundle 'tpope/vim-fugitive'
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" コマンドラインの拡張
+NeoBundle 'itchyny/lightline.vim'
+
+let g:lightline = {
+      \ 'colorscheme': 'tender',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \ },
+      \ }
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+set noshowmode
 
 " Required
 call neobundle#end()
