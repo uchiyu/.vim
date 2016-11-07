@@ -185,7 +185,7 @@ set clipboard=unnamed
 set history=100
 
 "ESCを2回でハイライトを消す
-nmap <silent> <Esc><Esc> :nohlsearch<CR>
+"nmap <silent> <Esc><Esc> :nohlsearch<CR>
 
 "------------------------------------------------------------
 " ファイルを開いた時に、以前のカーソル位置を復元する
@@ -512,7 +512,8 @@ nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" ESC×2で検索のハイライトを消す. 最後にCRで改行
+nmap <silent> <Esc><Esc> <Plug>(anzu-clear-search-status) :nohlsearch<CR>
 
 " Required
 call neobundle#end()
