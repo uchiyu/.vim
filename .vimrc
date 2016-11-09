@@ -275,6 +275,12 @@ set listchars=eol:$,tab:>-,trail:_,extends:<
 set showmatch
 set matchtime=1
 
+" スクロールが重くなる対策
+" スクリプト実行中に画面を描画しない
+set lazyredraw
+" 高速ターミナル接続
+set ttyfast
+
 " 言語毎の設定------------------------------------------------
 " ファイルタイプを認識して、インデントを変更
 " coffee
