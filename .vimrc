@@ -530,6 +530,11 @@ nmap # <Plug>(anzu-sharp-with-echo)
 " ESC×2で検索のハイライトを消す. 最後にCRで改行
 nmap <silent> <Esc><Esc> <Plug>(anzu-clear-search-status) :nohlsearch<CR>
 
+NeoBundle 'haya14busa/incsearch.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 " Required
 call neobundle#end()
 
