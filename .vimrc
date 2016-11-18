@@ -3,7 +3,6 @@
 if has('win32')
   " Windows用
   set guifont=MS_Mincho:h12:cSHIFTJIS
-  "set guifont=MS_Mincho:h12:cSHIFTJIS
   " 行間隔の設定
   set linespace=1
   " 一部のUCS文字の幅を自動計測して決める
@@ -62,7 +61,6 @@ set mousehide
 if has('printer')
   if has('win32')
     set printfont=MS_Mincho:h12:cSHIFTJIS
-    "set printfont=MS_Gothic:h12:cSHIFTJIS
   endif
 endif
 
@@ -75,7 +73,7 @@ set nocompatible
 filetype on
 
 "------------------------------------------------------------
-" Must have options {{{1
+" Must have options
 " 強く推奨するオプション
 " バッファを保存しなくても他のバッファを表示できるようにする
 set hidden
@@ -182,7 +180,7 @@ set clipboard=unnamed
 set history=100
 
 "ESCを2回でハイライトを消す
-nmap <silent> <Esc><Esc> :nohlsearch<CR>
+"nmap <silent> <Esc><Esc> :nohlsearch<CR>
 
 "------------------------------------------------------------
 " ファイルを開いた時に、以前のカーソル位置を復元する
@@ -196,6 +194,7 @@ endfunction
 augroup vimrc_restore_cursor_position
   autocmd!
   autocmd BufWinEnter * call s:RestoreCursorPostion()
+  autocmd InsertLeave * set nopaste
 augroup END
 
 "文字コード---------------------------------------------------
@@ -271,6 +270,42 @@ set listchars=eol:$,tab:>-,trail:_,extends:<
 set showmatch
 set matchtime=1
 
+" スクロールが重くなる対策
+" スクリプト実行中に画面を描画しない
+set lazyredraw
+" 高速ターミナル接続
+set ttyfast
+
+" 表示行単位で上下移動するように
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up>   gk
+" 逆に普通の行単位で移動したい時のための map も設定しておく
+nnoremap gj j
+nnoremap gk k
+
+" 言語毎の設定------------------------------------------------
+" ファイルタイプを認識して、インデントを変更
+" coffee
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+
+" python
+au BufRead,BufNewFile,BufReadPre *.python   set filetype=python
+autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+
+" html
+au BufRead,BufNewFile,BufReadPre *.html set filetype=html
+autocmd FileType html     setlocal sw=4 sts=4 ts=4 et
+
+" sass
+au BufRead,BufNewFile *.scss set filetype=sass
+autocmd FileType sass     setlocal sw=4 sts=4 ts=4 et
+
+" slim
+autocmd BufRead,BufNewFile *.slim setfiletype slim
+
 "プラグイン---------------------------------------------------
 "---------------------------
 "start Neobundle Settings.
@@ -342,14 +377,19 @@ let g:syntastic_ruby_checkers = ['rubocop']
 
 "htmlのシンタックスファイル
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
+"NeoBundle 'taichouchou2/html5.vim'
 "JSのシンタックスファイル
 NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 NeoBundle 'kchmck/vim-coffee-script'
+"es6のシンタックスファイル
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'maxmellon/vim-jsx-pretty'
+" optional
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'othree/es.next.syntax.vim'
 "slimのシンタックスファイル
 NeoBundle 'slim-template/vim-slim'
-
 "スニペット snippet------------------------------------------------
 "snippetは入力補完 complcacheは入力補完機能の強化 のようなもの
 NeoBundle 'Shougo/neocomplcache.git'
@@ -369,6 +409,7 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -377,10 +418,9 @@ endif
 "jsの補完強化
 NeoBundle 'marijnh/tern_for_vim'
 
-" Ruby Rails関連----------------------------------------------------
-"NeoBundle 'supermomonga/neocomplete-rsense.vim'
-"let g:rsenseHome = '/usr/local/lib/rsense-0.3'
-"let g:rsenseUseOmniFunc = 1
+"JSONのシンタックス
+NeoBundle 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
 "surround.vim 括弧などの編集---------------------------------------
 NeoBundle 'tpope/vim-surround'
@@ -408,13 +448,6 @@ NeoBundle 'szw/vim-tags'
 
 " 自動でendなどを閉じる
 NeoBundle 'tpope/vim-endwise'
-
-" gfの強化版
-NeoBundle 'tpope/vim-rails'
-autocmd User Rails AlterCommand r R
-autocmd User Rails AlterCommand rc Rcontroller
-autocmd User Rails AlterCommand rm Rmodel
-autocmd User Rails AlterCommand rv Rview
 
 "emmet.vim htmlやcss記述の効率化-----------------------------------
 NeoBundle 'mattn/emmet-vim'
@@ -449,6 +482,8 @@ NeoBundle 'MaxMellon/molokai'
 " yankringの弊害が少ないver
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'kien/ctrlp.vim'
+"ctrlpをc-fで起動する
+let g:ctrlp_map = '<C-f>'
 " C-p, C-n で貼り付けたテキストの前後の履歴
 nmap p <Plug>(yankround-p)
 xmap p <Plug>(yankround-p)
@@ -458,6 +493,42 @@ xmap gp <Plug>(yankround-gp)
 nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
+
+" コマンドラインの拡張
+NeoBundle 'itchyny/lightline.vim'
+" コマンドラインにbranchを表示
+NeoBundle 'tpope/vim-fugitive'
+
+let g:lightline = {
+      \ 'colorscheme': 'default',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \ },
+      \ }
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+set noshowmode
+set statusline=%{anzu#search_status()}
+
+" 検索結果の順番を表示
+NeoBundle 'osyo-manga/vim-anzu'
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" ESC×2で検索のハイライトを消す. 最後にCRで改行
+nmap <silent> <Esc><Esc> <Plug>(anzu-clear-search-status) :nohlsearch<CR>
+
+NeoBundle 'haya14busa/incsearch.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " Required
 call neobundle#end()
@@ -473,7 +544,6 @@ NeoBundleCheck
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
 syntax on
-
 "indentの設定 Clojure
 filetype plugin indent on
 filetype indent on
