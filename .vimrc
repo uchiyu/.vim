@@ -385,6 +385,10 @@ NeoBundle 'kchmck/vim-coffee-script'
 "es6のシンタックスファイル
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'maxmellon/vim-jsx-pretty'
+"jsxのシンタックス
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
 " optional
 NeoBundle 'othree/javascript-libraries-syntax.vim'
 NeoBundle 'othree/es.next.syntax.vim'
