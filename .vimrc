@@ -66,9 +66,6 @@ if has('printer')
 endif
 
 "------------------------------------------------------------
-" Features
-" Vi互換モードをオフ（Vimの拡張機能を有効）
-set nocompatible
 
  "filetypeの自動認識をオン(html, pyなど)
 filetype on
@@ -289,6 +286,13 @@ nnoremap <Up>   gk
 " 逆に普通の行単位で移動したい時のための map も設定しておく
 nnoremap gj j
 nnoremap gk k
+
+" git grep をcommand lineで実行
+setlocal grepprg=git\ grep\ -I\ --line-number
+augroup QUICKFIX
+  autocmd!
+  autocmd QuickFixCmdPost *grep* cwindow
+augroup END
 
 " 言語毎の設定------------------------------------------------
 " ファイルタイプを認識して、インデントを変更
