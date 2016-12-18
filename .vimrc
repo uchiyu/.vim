@@ -122,7 +122,7 @@ set t_vb=
 " コマンドラインの高さを2行に
 set cmdheight=2
 
-" 行番号の表示と相対表示 
+" 行番号の表示と相対表示
 " 番号＋j(or)kでジャンプ
 set number
 set relativenumber
@@ -392,7 +392,7 @@ NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 NeoBundle 'kchmck/vim-coffee-script'
 "es6のシンタックスファイル
-NeoBundle 'othree/yajs.vim'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'maxmellon/vim-jsx-pretty'
 " optional
 NeoBundle 'othree/javascript-libraries-syntax.vim'
