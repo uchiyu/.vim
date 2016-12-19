@@ -283,7 +283,7 @@ nnoremap gj j
 nnoremap gk k
 
 " git grep をcommand lineで実行
-setlocal grepprg=git\ grep\ -I\ --line-number
+set grepprg=git\ grep\ -I\ --line-number
 augroup QUICKFIX
   autocmd!
   autocmd QuickFixCmdPost *grep* cwindow
@@ -491,6 +491,7 @@ NeoBundle 'MaxMellon/molokai'
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'kien/ctrlp.vim'
 "ctrlpをc-fで起動する
+" ctrl + j k で検索結果を移動
 let g:ctrlp_map = '<C-f>'
 " C-p, C-n で貼り付けたテキストの前後の履歴
 nmap p <Plug>(yankround-p)
