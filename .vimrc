@@ -288,7 +288,9 @@ nnoremap gj j
 nnoremap gk k
 
 " git grep をcommand lineで実行
-setlocal grepprg=git\ grep\ -I\ --line-number
+command! -nargs=? Grep silent grep! <f-args> | redraw!
+cabbrev grep Grep
+set grepprg=git\ grep\ -I\ --line-number
 augroup QUICKFIX
   autocmd!
   autocmd QuickFixCmdPost *grep* cwindow
