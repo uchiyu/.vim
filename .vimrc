@@ -65,9 +65,6 @@ if has('printer')
 endif
 
 "------------------------------------------------------------
-" Features
-" Vi互換モードをオフ（Vimの拡張機能を有効）
-set nocompatible
 
  "filetypeの自動認識をオン(html, pyなど)
 filetype on
@@ -124,7 +121,7 @@ set t_vb=
 " コマンドラインの高さを2行に
 set cmdheight=2
 
-" 行番号の表示と相対表示 
+" 行番号の表示と相対表示
 " 番号＋j(or)kでジャンプ
 set number
 set relativenumber
@@ -285,6 +282,13 @@ nnoremap <Up>   gk
 nnoremap gj j
 nnoremap gk k
 
+" git grep をcommand lineで実行
+setlocal grepprg=git\ grep\ -I\ --line-number
+augroup QUICKFIX
+  autocmd!
+  autocmd QuickFixCmdPost *grep* cwindow
+augroup END
+
 " 言語毎の設定------------------------------------------------
 " ファイルタイプを認識して、インデントを変更
 " coffee
@@ -383,7 +387,7 @@ NeoBundle 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 NeoBundle 'kchmck/vim-coffee-script'
 "es6のシンタックスファイル
-NeoBundle 'othree/yajs.vim'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'maxmellon/vim-jsx-pretty'
 "jsxのシンタックス
 NeoBundle 'pangloss/vim-javascript'
