@@ -314,52 +314,38 @@ autocmd BufRead,BufNewFile *.slim setfiletype slim
 
 "プラグイン---------------------------------------------------
 "---------------------------
-"start Neobundle Settings.
+"start vim-plug.
 "---------------------------
 
-"---------------------------
-"Nuobundleの設定
-"---------------------------
-" bundleで管理するディレクトリを指定
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" neobundle自体をneobundleで管理
-NeoBundleFetch  'Shougo/neobundle.vim'
-
-"vimproc.vim のインストールとmake
-NeoBundle 'Shougo/vimproc', {
-\ 'build' : {
-\     'windows' : 'make -f make_mingw32.mak',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'unix' : 'make -f make_unix.mak',
-\   },
-\ }
-
-NeoBundle 'VimClojure'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'jpalardy/vim-slime'
+call plug#begin('~/.vim/plugged')
 
 "---------------------------
 " 追加のプラグイン
 "---------------------------
 " helpの日本語化と遅延ロード
-NeoBundle 'vim-jp/vimdoc-ja' , {
+Plug 'vim-jp/vimdoc-ja' , {
       \  'autoload' : { 'commands' : [ 'help' ] },
       \}
 " vimdoc-ja 普段はコメントアウト
 set helplang=ja,en
 
 " indentLine
-NeoBundle  'Yggdroot/indentLine'
+Plug  'Yggdroot/indentLine'
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 
 " 自動でかっこを閉じる
-NeoBundle 'Townk/vim-autoclose'
+Plug 'Townk/vim-autoclose'
 
 "コードを実行------------------------------------------------------
 "インストール後にmakeが必要
@@ -369,7 +355,8 @@ NeoBundle 'Townk/vim-autoclose'
 let g:quickrun_config={'*': {'split': 'vertical'}}
 
 "シンタックスチェック syntastic------------------------------------
-NeoBundle "scrooloose/syntastic"
+Plug 'vim-syntastic/syntastic'
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
@@ -382,29 +369,30 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 let g:syntastic_ruby_checkers = ['rubocop']
 
 "htmlのシンタックスファイル
-NeoBundle 'hail2u/vim-css3-syntax'
-"NeoBundle 'taichouchou2/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+"Plug 'taichouchou2/html5.vim'
 "JSのシンタックスファイル
-NeoBundle 'mattn/jscomplete-vim'
+Plug 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
-NeoBundle 'kchmck/vim-coffee-script'
+Plug 'kchmck/vim-coffee-script'
 "es6のシンタックスファイル
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'maxmellon/vim-jsx-pretty'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 "jsxのシンタックス
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 " optional
-NeoBundle 'othree/javascript-libraries-syntax.vim'
-NeoBundle 'othree/es.next.syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/es.next.syntax.vim'
 "slimのシンタックスファイル
-NeoBundle 'slim-template/vim-slim'
+Plug 'slim-template/vim-slim'
 "スニペット snippet------------------------------------------------
 "snippetは入力補完 complcacheは入力補完機能の強化 のようなもの
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neosnippet.git'
-NeoBundle 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplcache'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
 " 起動時に有効化
 let g:neocomplcache_enable_at_startup = 1
@@ -426,17 +414,17 @@ if has('conceal')
 endif
 
 "jsの補完強化
-NeoBundle 'marijnh/tern_for_vim'
+Plug 'marijnh/tern_for_vim'
 
 "JSONのシンタックス
-NeoBundle 'elzr/vim-json'
+Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
 "surround.vim 括弧などの編集---------------------------------------
-NeoBundle 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 "open-browser.vim URLを開いたりググれる----------------------------
-NeoBundle 'open-browser.vim'
+Plug 'open-browser.vim'
 " カーソル下のURLをブラウザで開く
 nmap <Leader>o <Plug>(openbrowser-open)
 vmap <Leader>o <Plug>(openbrowser-open)
@@ -444,23 +432,23 @@ vmap <Leader>o <Plug>(openbrowser-open)
 nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 
 "webapi vimからhttpのpostやgetが可能-------------------------------
-NeoBundle 'mattn/webapi-vim'
+Plug 'mattn/webapi-vim'
 
 "ノードの整形
-NeoBundle 'moll/vim-node'
+Plug 'moll/vim-node'
 
 " ドキュメント参照 shift+kでリファレンス
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'yuku-t/vim-ref-ri'
+Plug 'thinca/vim-ref'
+Plug 'yuku-t/vim-ref-ri'
 
 " メソッド定義元へのジャンプ
-NeoBundle 'szw/vim-tags'
+Plug 'szw/vim-tags'
 
 " 自動でendなどを閉じる
-NeoBundle 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 
 "emmet.vim htmlやcss記述の効率化-----------------------------------
-NeoBundle 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 "emmetを日本語設定に
 let g:user_emmet_settings = {
 \   'lang' : 'ja'
@@ -468,30 +456,30 @@ let g:user_emmet_settings = {
 
 "------------------------------------------------------------------
 "unite.vim ディレクトリやファイルの作成、バッファの表示など
-NeoBundle 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim'
 
-NeoBundle 'basyura/unite-rails'
+Plug 'basyura/unite-rails'
 " 最近使用したファイルの表示
-NeoBundle 'Shougo/neomru.vim'
+Plug 'Shougo/neomru.vim'
 nnoremap <leader>m :<C-u>Unite file_mru<CR>
 
 "-----------------------------------------------------------------
 "vimfiler ファイル操作が可能に
-NeoBundle 'Shougo/vimfiler'
+Plug 'Shougo/vimfiler'
 " セーフティーモードの解除
 let g:vimfiler_safe_mode_by_default = 0
 "ffでVimfilerでIDE風にファイルを表示
 nnoremap ss :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
 
 "スカウター ":scouter ファイル名 で実行
-NeoBundle 'thinca/vim-scouter'
+Plug 'thinca/vim-scouter'
 
 " カラースキーマの設定---------------------------------------------------
-NeoBundle 'MaxMellon/molokai'
+Plug 'MaxMellon/molokai'
 
 " yankringの弊害が少ないver
-NeoBundle 'LeafCage/yankround.vim'
-NeoBundle 'kien/ctrlp.vim'
+Plug 'LeafCage/yankround.vim'
+Plug 'kien/ctrlp.vim'
 "ctrlpをc-fで起動する
 " ctrl + j k で検索結果を移動
 let g:ctrlp_map = '<C-f>'
@@ -506,9 +494,9 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 
 " コマンドラインの拡張
-NeoBundle 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 " コマンドラインにbranchを表示
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 let g:lightline = {
       \ 'colorscheme': 'default',
@@ -527,7 +515,7 @@ set noshowmode
 set statusline=%{anzu#search_status()}
 
 " 検索結果の順番を表示
-NeoBundle 'osyo-manga/vim-anzu'
+Plug 'osyo-manga/vim-anzu'
 " mapping
 nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
@@ -536,18 +524,13 @@ nmap # <Plug>(anzu-sharp-with-echo)
 " ESC×2で検索のハイライトを消す. 最後にCRで改行
 nmap <silent> <Esc><Esc> <Plug>(anzu-clear-search-status) :nohlsearch<CR>
 
-NeoBundle 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-" Required
-call neobundle#end()
-
-" 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
-" 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
-" Neobundleのインストールでエラーに
-NeoBundleCheck
+" Initialize plugin system
+call plug#end()
 
 "-------------------------
 " End Neobundle Settings.
