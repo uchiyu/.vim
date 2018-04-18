@@ -512,7 +512,6 @@ function! LightLineFugitive()
   return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
 set noshowmode
-set statusline=%{anzu#search_status()}
 
 " 検索結果の順番を表示
 Plug 'osyo-manga/vim-anzu'
@@ -523,6 +522,8 @@ nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 " ESC×2で検索のハイライトを消す. 最後にCRで改行
 nmap <silent> <Esc><Esc> <Plug>(anzu-clear-search-status) :nohlsearch<CR>
+
+set statusline=%{anzu#search_status()}
 
 Plug 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
