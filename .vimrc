@@ -326,6 +326,10 @@ if has('vim_starting')
   end
 endif
 
+"-------------------------
+" Start Plug Settings.
+"-------------------------
+
 " Required:
 call plug#begin('~/.vim/plugged')
 
@@ -534,7 +538,7 @@ map g/ <Plug>(incsearch-stay)
 call plug#end()
 
 "-------------------------
-" End Neobundle Settings.
+" End Plug Settings.
 "-------------------------
 
 "Neobundleを呼び出すとsyntax offになるのでsyntax onは最後に
