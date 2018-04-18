@@ -424,7 +424,7 @@ let g:vim_json_syntax_conceal = 0
 Plug 'tpope/vim-surround'
 
 "open-browser.vim URLを開いたりググれる----------------------------
-Plug 'open-browser.vim'
+Plug 'tyru/open-browser.vim'
 " カーソル下のURLをブラウザで開く
 nmap <Leader>o <Plug>(openbrowser-open)
 vmap <Leader>o <Plug>(openbrowser-open)
