@@ -386,6 +386,17 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
+
+"jsの補完強化
+Plug 'marijnh/tern_for_vim'
+
+"JSONのシンタックス
+Plug 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
+
+" GOのサポート
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " optional
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/es.next.syntax.vim'
@@ -411,18 +422,10 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-
-"jsの補完強化
-Plug 'marijnh/tern_for_vim'
-
-"JSONのシンタックス
-Plug 'elzr/vim-json'
-let g:vim_json_syntax_conceal = 0
 
 "surround.vim 括弧などの編集---------------------------------------
 Plug 'tpope/vim-surround'
