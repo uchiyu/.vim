@@ -380,7 +380,7 @@ Plug 'mattn/jscomplete-vim'
 "coffee-scriptのシンタックスファイル
 Plug 'kchmck/vim-coffee-script'
 "es6のシンタックスファイル
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'maxmellon/vim-jsx-pretty'
 "jsxのシンタックス
 Plug 'pangloss/vim-javascript'
@@ -388,7 +388,7 @@ Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
 "jsの補完強化
-Plug 'marijnh/tern_for_vim'
+Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
 
 "JSONのシンタックス
 Plug 'elzr/vim-json'
